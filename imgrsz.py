@@ -31,16 +31,42 @@ def image_resize(input, output, width, height, scale):
   img = Image.open(input)
   w,h = img.size
   if scale < 0.0:
-	if width>0: scale = float(width)/w
-	if height>0: scale = float(height)/h
+    if width>0: scale = float(width)/w
+    if height>0: scale = float(height)/h
   if width<0: width = int(w*scale)
   if height<0: height = int(h*scale)
   img = img.resize((width, height), PIL.Image.ANTIALIAS)
   img.save(output)
-  return (width, height)
+  return (width, height, w, h)
 
 def usage():
-  print('i:o:h:w:s:r?')
+  print 'imgrsz -- IMaGeage ReSiZe script in Python'
+  print 'Usage: imgrsz.py [OPTIONS]...'
+  print 'Resize input image into output image to a given target size'
+  print '    target width and/or height or scaling factor'
+  print ''
+  print 'Description of arguments:'
+  print '  Input/Output'
+  print '  -i, --input      input image filename'
+  print '                   * mandatory argument'
+  print '  -o, --output     output filename'
+  print '                   ! either -r or this is mandatory'
+  print '  -r, --replace    replace input file with resized image'
+  print '                   ! required only when replacing'
+  print ''
+  print '  Sizing'
+  print '  -w, --width      target width of resized image' 
+  print '  -h, --height     target height of resized image'
+  print '  -s, --scale      scaling factor of resized image'
+  print '                   `if you provide either of w,h this program will compute'
+  print '                    other keeping the aspect ratio'
+  print '                   `if you provide a scaling factor, the new image will keep'
+  print '                    original aspect ratio'
+  print '                   `if both w and h supplied, s will be ignored'
+  print ''
+  print '  Other'
+  print '  -q, --quiet      quiet mode'
+  print '  -v, --verbose    verbose'
 
 import getopt, sys
 
@@ -95,25 +121,28 @@ def main():
       print 'quiet:\t', quiet
   
   if input == '':
-    print '[!] pass an input image file to resize [-i, --input]'
+    if not quiet: print '[!] pass an input image file to resize [-i, --input]'
     sys.exit()
   if replace:
     output = input
-    if not quiet: 
-      print 'replacing input image with output file' 
+    if not quiet: print 'replacing input image with output file' 
   if output == '':
-    print '[!] pass an output file-name to write the resized image to [-o, --output]'
-    print '    to replace original file with resized image, use [-r, --replace]'
+    if not quiet:      
+      print '[!] pass an output file-name to write the resized image to [-o, --output]'
+      print '    to replace original file with resized image, use [-r, --replace]'
     sys.exit()
   if width <0 and height<0 and scale<0.0:
-    print '[!] pass atleast one of height, width or scale values:'
-    print '    -w, --width: width of resized image'	
-    print '    -h, --height: height of resized image'	
-    print '    -s, --scale: scale ratio for resized image'	
-    print '    if one passed, others are duly calculated'
+    if not quiet:
+      print '[!] pass atleast one of height, width or scale values:'
+      print '    -w, --width: width of resized image'  
+      print '    -h, --height: height of resized image'  
+      print '    -s, --scale: scale ratio for resized image'  
+      print '    if one passed, others are duly calculated'
+    sys.exit()
   # ...
-  width, height = image_resize(input, output, width, height, scale)
-  print 'resized', input, 'to', output, '(',width,'X',height,')'
+  width, height, w, h = image_resize(input, output, width, height, scale)
+  if not quiet: print 'resized', input,'(',w,'X',h,')', 'to', output, '(',width,'X',height,')'
+  return
   
 if __name__ == '__main__':
   main()
