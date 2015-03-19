@@ -40,3 +40,8 @@ Description of arguments:
   -q, --quiet      quiet mode
   -v, --verbose    verbose
 ```
+
+License
+-------
+This is a free unencumbered software released to public domain  by
+[nafSadh-khan](http://nafSadh.com) unde the [Unlicense](http://unlicense.org/).
