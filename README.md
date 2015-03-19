@@ -44,4 +44,4 @@ Description of arguments:
 License
 -------
 This is a free unencumbered software released to public domain  by
-[nafSadh-khan](http://nafSadh.com) unde the [Unlicense](http://unlicense.org/).
+[nafSadh-khan](http://nafSadh.com) under the [Unlicense](http://unlicense.org/).
