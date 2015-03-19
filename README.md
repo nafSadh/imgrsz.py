@@ -41,6 +41,14 @@ Description of arguments:
   -v, --verbose    verbose
 ```
 
+Example commands:
+```
+> python imgrsz.py -i img.jpg -o copy.jpg -s .5
+```
+```
+> python imgrsz.py -i img.jpg -o copy.jpg -h 124
+```
+
 License
 -------
 This is a free unencumbered software released to public domain  by
