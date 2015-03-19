@@ -7,7 +7,9 @@ Pillow
 ------
 This script requires the new Python Image Library (Pillow). You can pip install
 Pillow using following command:
-`> pip install Pillow`
+```
+> pip install Pillow
+```
 
 Usage
 -----
