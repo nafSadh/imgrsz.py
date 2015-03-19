@@ -44,7 +44,16 @@ def image_resize(input, output, width, height, scale):
   img.save(output)
   return (width, height, w, h)
 
+def printEntireFile(filename):
+  with open(filename, "rU") as file:
+    print file.read()
+  #for line in lines[1:]:
+  #  print line
+
 def usage():
+  printEntireFile("USAGE")
+
+def usageOld():
   print 'imgrsz -- IMaGeage ReSiZe script in Python'
   print 'Usage: imgrsz.py [OPTIONS]...'
   print 'Resize input image into output image to a given target size'
