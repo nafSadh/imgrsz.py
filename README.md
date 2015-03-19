@@ -4,6 +4,7 @@ IMaGe ReSiZe script in Python
 
 Usage
 -----
+```
 Usage: imgrsz.py [OPTIONS]...
 
 Resize input image into output image to a given target size
@@ -29,3 +30,4 @@ Description of arguments:
   Other
   -q, --quiet      quiet mode
   -v, --verbose    verbose
+```
