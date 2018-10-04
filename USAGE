@@ -24,4 +24,6 @@ Description of arguments:
                    `if both w and h supplied, s will be ignored
   Other
   -q, --quiet      quiet mode
+  -d, --dir        directory mode
+                   `in this mode input and output paramters will be considered as directory
   -v, --verbose    verbose

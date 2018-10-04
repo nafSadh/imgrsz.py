@@ -59,7 +59,7 @@ def usage():
 def main():
   import getopt, sys
   try:
-    options, args = getopt.getopt(sys.argv[1:], 'i:o:h:w:s:r?qv', ['help', 'input=', 'output=', 'height=', 'width=', 'scale=', 'replace', 'quiet', 'verbose'])
+    options, args = getopt.getopt(sys.argv[1:], 'i:o:h:w:s:r?qdv', ['help', 'input=', 'output=', 'height=', 'width=', 'scale=', 'replace', 'quiet', 'verbose'])
   except getopt.GetoptError as err:
     # print help information and exit:
     print(err) # will print something like 'option -a not recognized'
@@ -73,6 +73,7 @@ def main():
   scale = -1.0
   replace = False
   quiet = False
+  dir = False
   verbose = False
 
   # read args
@@ -94,6 +95,8 @@ def main():
       sys.exit()
     elif opt in ('-q', '--quiet'):
       quiet = True
+    elif opt in ('-d', '--dir'):
+      dir = True
     elif opt in ('-v', '--verbose'):
       verbose = True
     else:
@@ -128,8 +131,19 @@ def main():
       print '    if one passed, others are duly calculated'
     sys.exit()
   # ...
-  width, height, w, h = image_resize(input, output, width, height, scale)
-  if not quiet: print 'resized', input,'(',w,'X',h,')', 'to', output, '(',width,'X',height,')'
+  if dir:
+    from os import listdir
+    from os.path import isfile, join
+    onlyfiles = [f for f in listdir(input) if isfile(join(input, f))]
+    if output==input:
+      output = join(output+"out/")
+    for file in onlyfiles:
+      r_width, r_height, r_w, r_h = image_resize(join(input, file), join(output, file), width, height, scale)
+      if not quiet: print 'resized', input,'(',r_w,'X',r_h,')', 'to', output, '(',r_width,'X',r_height,')'
+
+  else :
+    width, height, w, h = image_resize(input, output, width, height, scale)
+    if not quiet: print 'resized', input,'(',w,'X',h,')', 'to', output, '(',width,'X',height,')'
   return
 
 if __name__ == '__main__':
